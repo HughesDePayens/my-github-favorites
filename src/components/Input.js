@@ -1,7 +1,15 @@
 import React from 'react';
 
-const Input = () => (
-  <input type='text' />
-);
+class Input extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <input type='text' onChange={this.props.handler} />
+    )
+  }
+}
 
 export default Input;

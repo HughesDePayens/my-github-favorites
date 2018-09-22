@@ -18,6 +18,8 @@ class Panel extends React.Component {
           latestTag={item.latestTag}
           role={this.props.role}
           action={this.props.action}
+          isInFavorites={item.isInFavorites}
+          handler={this.props.handler}
           key={idx} />
       );
     });
