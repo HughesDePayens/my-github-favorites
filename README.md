@@ -7,7 +7,7 @@ https://monosnap.com/file/HMsGxRA2jCHKxnjNIXsT09Yu9Y6bb8
 ## To Do
 
 * Add configuration file for authorization key
-* Responsive
+* Improve Responsive
 
 ## Instructions
 

@@ -1,4 +1,8 @@
 .search-container {
   padding: $padding-content;
-  width: 50%;
+  width: 100%;
+
+  @media all and (min-width: $bp-tablet) {
+    width: 50%;
+  }
 }
