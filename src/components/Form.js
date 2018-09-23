@@ -3,11 +3,21 @@ import React from 'react';
 import Button from './Button';
 import Input from './Input';
 
-const Form = () => (
-  <form className='search-form'>
-    <Input />
-    <Button />
-  </form>
-);
+
+class Form extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <form className='search-form' onSubmit={this.props.action}>
+        <Input searchInputValue={this.props.searchInputValue} handler={this.props.inputHandler} />
+        <Button />
+      </form>
+    );
+  }
+}
+
 
 export default Form;
