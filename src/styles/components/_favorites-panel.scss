@@ -1,5 +1,8 @@
 .favorites-panel {
   background-color: $color-secondary;
   padding: $padding-content;
-  width: 50%;
+
+  @media all and (min-width: $bp-tablet) {
+    width: 50%;
+  }
 }
