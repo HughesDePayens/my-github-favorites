@@ -14,7 +14,8 @@ class TableRow extends React.Component {
     )
   }
 
-  handleActionClick() {
+  handleActionClick(e) {
+    e.preventDefault();
     this.props.handler(this.props.name, this.props.language, this.props.latestTag);
   }
 

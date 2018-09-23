@@ -20,8 +20,7 @@ class App extends React.Component {
     this.state = {
       results: [
       ],
-      favorites: [
-      ],
+      favorites: JSON.parse(localStorage.getItem('my-github-favorites')),
       searchInputValue: '',
     };
 
@@ -33,9 +32,13 @@ class App extends React.Component {
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
   }
 
+  componentDidUpdate() {
+    localStorage.setItem('my-github-favorites', JSON.stringify(this.state.favorites));
+  }
+
   handleAddFavorite(name, language, latestTag) {
     this.setState((prevState) => {
-      let newFavorites = [].concat(prevState.favorites);
+      const newFavorites = [].concat(prevState.favorites);
 
       newFavorites.push({
         name,
@@ -52,7 +55,7 @@ class App extends React.Component {
   handleRemoveFavorite(name, language, latestTag) {
     this.setState((prevState) => {
       const newFavorites = prevState.favorites.filter((favorite) => {
-        return favorite.name !== name && favorite.language !== language && favorite.latestTag !== latestTag;
+        return favorite.name !== name;
       });
 
       return { favorites: newFavorites }
@@ -103,11 +106,11 @@ class App extends React.Component {
       }
     `;
 
-    fetch('https://api.github.com/graphql?access_token=ab3e03ae4ab3bf562922844aa0f66d0eb3a71b70', {
+    fetch('https://api.github.com/graphql?access_token=3e85a0849ce708fc75f31989a314acb0dfba6af4', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
-        { query: query }
+        { query }
       ),
     })
       .then(res => res.json())
@@ -118,10 +121,11 @@ class App extends React.Component {
     this.setState(() => {
       const newResults = data.search.edges.map((result) => {
         const latestTag = result.node.releases.edges.length ? result.node.releases.edges[0].node.tag.name : false;
+        const language = result.node.primaryLanguage ? result.node.primaryLanguage.name : false;
 
         return {
           name: result.node.nameWithOwner,
-          language: result.node.primaryLanguage.name,
+          language,
           latestTag,
           isInFavorites: false,
         };
