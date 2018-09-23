@@ -8,10 +8,47 @@ body {
   font-size: $size-m;
 }
 
+a {
+  color: $color-primary;
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  padding: 0 0 2.5rem 0;
+  text-align: left;
+}
+
+input {
+  border-radius: $border-radius;
+  border: 1px solid $color-black;
+  padding: 1rem 2rem;
+  width: 100%;
+}
+
 button {
+  background-color: $color-primary;
+  border-radius: $border-radius;
+  border: 0;
+  color: $color-white;
   cursor: pointer;
+  font-weight: bold;
+  padding: 1.5rem 5rem;
+  transition: background-color $transition;
+
+  input + & {
+    margin-left: 1.5rem;
+  }
+
+  &:hover {
+    background-color: $color-primary__light;
+  }
 
   &:disabled {
+    background-color: $color-disabled;
     cursor: default;
   }
 }

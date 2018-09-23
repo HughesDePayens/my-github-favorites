@@ -1,0 +1,11 @@
+.header {
+  background-color: $color-primary;
+  color: $color-white;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.header__title {
+  margin: 0;
+  padding: $padding-content 0;
+}

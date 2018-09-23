@@ -12,8 +12,9 @@ class Form extends React.Component {
   render() {
     return (
       <form className='search-form' onSubmit={this.props.action}>
-        <Input searchInputValue={this.props.searchInputValue} handler={this.props.inputHandler} />
-        <Button />
+        <Input searchInputValue={this.props.searchInputValue}
+          handler={this.props.inputHandler} />
+        <Button disabled={!this.props.searchInputValue ? true : false} />
       </form>
     );
   }
