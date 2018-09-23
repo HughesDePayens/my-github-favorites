@@ -18,8 +18,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      results: [
-      ],
+      results: [],
       favorites: JSON.parse(localStorage.getItem('my-github-favorites')),
       searchInputValue: '',
     };
@@ -32,16 +31,32 @@ class App extends React.Component {
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
   }
 
-  componentDidUpdate() {
-    localStorage.setItem('my-github-favorites', JSON.stringify(this.state.favorites));
+  componentDidUpdate(prevProps, prevState) {
+    this.clearResults(prevState);
+    this.saveToLocalStorage(prevState);
   }
 
-  handleAddFavorite(name, language, latestTag) {
+  saveToLocalStorage(prevState) {
+    if (prevState.favorites.length !== this.state.favorites.length) {
+      localStorage.setItem('my-github-favorites', JSON.stringify(this.state.favorites));
+    }
+  }
+
+  clearResults(prevState) {
+    if (prevState.searchInputValue !== this.state.searchInputValue && !this.state.searchInputValue) {
+      this.setState(() => {
+        return { results : [] }
+      });
+    }
+  }
+
+  handleAddFavorite(name, language, latestTag, url) {
     this.setState((prevState) => {
       const newFavorites = [].concat(prevState.favorites);
 
       newFavorites.push({
         name,
+        url,
         language,
         latestTag,
       });
@@ -106,7 +121,7 @@ class App extends React.Component {
       }
     `;
 
-    fetch('https://api.github.com/graphql?access_token=3e85a0849ce708fc75f31989a314acb0dfba6af4', {
+    fetch('https://api.github.com/graphql?access_token=[Your Token Here]', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
@@ -126,6 +141,7 @@ class App extends React.Component {
         return {
           name: result.node.nameWithOwner,
           language,
+          url: result.node.url,
           latestTag,
           isInFavorites: false,
         };

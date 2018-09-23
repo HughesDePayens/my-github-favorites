@@ -14,6 +14,7 @@ class Panel extends React.Component {
     this.props.rows.forEach((item, idx) => {
       rows.push(
         <TableRow name={item.name}
+          url={item.url}
           language={item.language}
           latestTag={item.latestTag}
           role={this.props.role}
